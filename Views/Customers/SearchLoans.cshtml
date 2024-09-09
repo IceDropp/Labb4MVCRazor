@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "SearchLoans";
+}
+
+<h1>Search Loans</h1>
+
+<form asp-controller="Customers" asp-action="CustomerLoans" method="get">
+    <div class="form-group">
+        <label for="customerId">Customer ID:</label>
+        <input type="text" class="form-control" id="customerId" name="id" placeholder="Enter Customer ID">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <h2>Customer Loans</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publication Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.PublicationYear</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No loans found for the provided customer ID.</p>
+}
